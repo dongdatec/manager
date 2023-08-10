@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/dongda?serverTimezone=UTC
+      username: root
+      password: 123456
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+#    控制台会打印日志和SQL的执行情况
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    关闭了驼峰命名法映射的功能。这意味着在映射实体或属性时，
+#  不会将数据库中表名和字段名中的下划线去掉，而是按照原始的命名方式进行映射。
+    map-underscore-to-camel-case: false
+

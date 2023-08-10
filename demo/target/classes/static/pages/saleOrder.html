@@ -1,0 +1,182 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  &lt;!&ndash; import CSS &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+<!--  <style>-->
+
+<!--      /* 左边导航栏高度 */-->
+<!--    .el-container {-->
+<!--      height: 100vh !important;-->
+<!--    }-->
+<!--    /* 数据表高度 */-->
+<!--    .el-container.is-vertical {-->
+<!--      height: 90vh !important;-->
+<!--    }-->
+
+<!--    .el-header {-->
+<!--      background-color: #B3C0D1;-->
+<!--      color: #333;-->
+<!--      /* line-height: 10px; */-->
+<!--    }-->
+
+<!--    .el-aside {-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    .welcome {-->
+<!--      display: flex;-->
+<!--      background-color: #B3C0D1;-->
+<!--    }-->
+
+<!--    .welcome span {-->
+<!--      margin: 0 auto;-->
+<!--      font-size: 30px;-->
+<!--    }-->
+<!--  </style>-->
+<!--  <title>东达科技有限公司仓库管理系统</title>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--  <div id="app">-->
+<!--    <el-container style="height: 500px; border: 1px solid #eee">-->
+<!--      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">-->
+<!--        <el-menu -->
+<!--          background-color="#545c64"-->
+<!--          text-color="#fff"-->
+<!--          active-text-color="#ffd04b"-->
+<!--          default-active="/Home"-->
+<!--        style="height: 100%;">-->
+<!--            <el-menu-item index="/Home">-->
+<!--              <i class="el-icon-s-home"></i>-->
+<!--              <span>首页</span>-->
+<!--            </el-menu-item> -->
+
+<!--            <el-menu-item index="/One">-->
+<!--              <i class="el-icon-s-flag"></i>-->
+<!--              <span>导航一</span>-->
+<!--            </el-menu-item> -->
+
+<!--            <el-menu-item index="/Two">-->
+<!--              <i class="el-icon-s-opportunity"></i>-->
+<!--              <span>导航二</span>-->
+<!--            </el-menu-item> -->
+<!--        </el-menu>-->
+<!--      </el-aside>-->
+
+<!--      <el-container>-->
+<!--        <el-header style="text-align: right; font-size: 15px;line-height:55px">-->
+<!--           <div class="welcome"> -->
+<!--            <i class="el-icon-s-fold" style="font-size: 30px;margin-top: 14px;"></i>-->
+<!--            <span>欢迎来到东达科技有限公司管理系统</span>-->
+<!--            <span style="position: absolute;right: 70px;font-size: 1em;">kirito</span>-->
+<!--            -->
+<!--          </div> -->
+<!--          -->
+<!--          <el-dropdown>-->
+<!--            <i class="el-icon-arrow-down" style="position: absolute;right: 24px;top: -66px;"></i>-->
+<!--            <el-dropdown-menu slot="dropdown">-->
+<!--              <el-dropdown-item @click.native="toUser">个人中心</el-dropdown-item>-->
+<!--              <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>-->
+<!--            </el-dropdown-menu>-->
+<!--          </el-dropdown>-->
+
+<!--        </el-header>-->
+
+<!--        <el-main>-->
+<!--          <el-table :data="dataList">-->
+<!--            <el-table-column prop="id" label="序号" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="service_date" label="日期" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="service_odd" label="单号" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="machine_id" label="机器序列号" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="department" label="单位名称" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="office" label="办公室" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="tel" label="电话" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="device_type" label="设备型号" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="fault_phenomenon" label="故障现象" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="fault_cause" label="故障原因" align="center">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="is_maintain" label="是否维修" align="center">-->
+<!--              <template slot-scope="scope">-->
+<!--                {{scope.row.is_maintain ? "已维修":"未维修"}}-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="is_back" label="是否送回" align="center">-->
+<!--              <template slot-scope="scope">-->
+<!--                {{scope.row.is_back ? "已送回":"未送回"}}-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="person_handing" label="经手人" align="center">-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-main>-->
+<!--      </el-container>-->
+<!--    </el-container>-->
+<!--  </div>-->
+<!--</body>-->
+<!--&lt;!&ndash; import Vue before Element &ndash;&gt;-->
+<!--<script src="https://unpkg.com/vue@2/dist/vue.js"></script>-->
+<!--&lt;!&ndash; import JavaScript &ndash;&gt;-->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
+<!--<script src="../js/axios-0.18.0.js"></script>-->
+<!--<script>-->
+<!--  var vue = new Vue({-->
+<!--    el: '#app',-->
+<!--    data: {-->
+<!--      dataList: [], //当前页要展示的列表数据-->
+<!--      dialogFormVisible: false,//添加表单是否可见-->
+<!--      dialogFormVisible4Edit: false,//编辑表单是否可见-->
+<!--      formData: {},//表单数据-->
+<!--      pagination: {//分页相关模型数据-->
+<!--        currentPage: 1,//当前页码-->
+<!--        pageSize: 4,//每页显示的记录数-->
+<!--        total: 0,//总记录数-->
+<!--        type: "",-->
+<!--        name: "",-->
+<!--        description: ""-->
+<!--      }-->
+<!--    },-->
+
+<!--    //钩子函数，VUE对象初始化完成后自动执行-->
+<!--    created() {-->
+<!--      //调用查询全部数据的操作-->
+<!--      this.getAll();-->
+<!--    },-->
+
+<!--    methods: {-->
+<!--      toUser() {-->
+
+<!--      },-->
+
+<!--      logout() {-->
+
+<!--      },-->
+
+<!--      getAll() {-->
+<!--        //发送异步请求-->
+<!--        axios.get("http://localhost:8080/sale/list").then((res) => {-->
+<!--          console.log('数据', res.data.data);-->
+<!--          this.dataList = res.data.data;-->
+<!--          console.log(this.dataList)-->
+<!--        }, (err) => {-->
+<!--          console.log(err);-->
+<!--        })-->
+<!--        console.log(this.dataList)-->
+<!--      }-->
+<!--    }-->
+<!--  })-->
+<!--</script>-->
+
+<!--</html>-->
